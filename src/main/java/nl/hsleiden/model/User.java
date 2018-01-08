@@ -9,26 +9,23 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
- * Meer informatie over validatie:
- *  http://hibernate.org/validator/
- * 
+ * Meer informatie over validatie: http://hibernate.org/validator/
+ *
  * @author Peter van Vliet
  */
-public class User implements Principal
-{
-//    @NotEmpty
-//    @Length(min = 3, max = 100)
-//    @JsonView(View.Public.class)
-//    private String fullName;
+public class User implements Principal {
+    @NotEmpty
+    @JsonView(View.Public.class)
+    private int id;
     
     @NotEmpty
     @Length(min = 3, max = 100)
     @JsonView(View.Public.class)
     private String firstName;
-    
+
     @JsonView(View.Public.class)
     private String middleName;
-    
+
     @NotEmpty
     @Length(min = 3, max = 100)
     @JsonView(View.Public.class)
@@ -38,28 +35,30 @@ public class User implements Principal
     @Length(min = 6, max = 7)
     @JsonView(View.Public.class)
     private String postcode;
-    
+
     @NotEmpty
     @Length(min = 1, max = 10)
     @JsonView(View.Public.class)
     private String streetnumber;
-    
+
     @NotEmpty
     @Email
     @JsonView(View.Public.class)
     private String emailAddress;
-    
+
     @NotEmpty
     @Length(min = 8)
     @JsonView(View.Protected.class)
     private String password;
-    
-    @JsonView(View.Private.class)
-    private String[] roles;
 
-    public User(String firstname, String middlename, String lastname,
-                String postcode, String streetnumber, String email, String password) {
+    @NotEmpty
+    @JsonView(View.Public.class)
+    private String role;
+
+    public User(int id, String firstname, String middlename, String lastname,
+            String postcode, String streetnumber, String email, String password, String role) {
         
+        this.setID(id);
         this.setFirstName(firstname);
         this.setMiddleName(middlename);
         this.setLastName(lastname);
@@ -67,44 +66,47 @@ public class User implements Principal
         this.setStreetnumber(streetnumber);
         this.setEmailAddress(email);
         this.setPassword(password);
-        this.setRoles(new String[] { "GUEST", "ADMIN" });
-        
+        this.setRole(role);
+
     }
-    
+
     public User() {
-        
+
     }
     
-    public String getFirstName()
-    {
+    public int getID() {
+        return id;
+    }
+    
+    public void setID(int id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName)
-    {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-    
-    public String getMiddleName()
-    {
+
+    public String getMiddleName() {
         return middleName;
     }
 
-    public void setMiddleName(String middleName)
-    {
+    public void setMiddleName(String middleName) {
+
         this.middleName = middleName;
     }
 
-    public String getLastName()
-    {
+    public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName)
-    {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    
+
 //    public String getFullName() {
 //        return fullName;
 //    }
@@ -112,83 +114,67 @@ public class User implements Principal
 //    public void setFullName(String fullName) {
 //        this.fullName = fullName;
 //    }
-    
-    public String getPostcode()
-    {
+    public String getPostcode() {
         return postcode;
     }
 
-    public void setPostcode(String postcode)
-    {
+    public void setPostcode(String postcode) {
         this.postcode = postcode;
     }
 
-    public String getStreetnumber()
-    {
+    public String getStreetnumber() {
         return streetnumber;
     }
 
-    public void setStreetnumber(String streetnumber)
-    {
+    public void setStreetnumber(String streetnumber) {
         this.streetnumber = streetnumber;
     }
 
-    public String getEmailAddress()
-    {
+    public String getEmailAddress() {
         return emailAddress;
     }
 
-    public void setEmailAddress(String emailAddress)
-    {
+    public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
 
-    public String getPassword()
-    {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password)
-    {
+    public void setPassword(String password) {
         this.password = password;
     }
 
     @Override
     @JsonIgnore
-    public String getName()
-    {
+    public String getName() {
         return firstName + " " + middleName + " " + lastName;
-//        return fullName;
-    }
-    
-    public String[] getRoles()
-    {
-        return roles;
     }
 
-    public void setRoles(String[] roles)
-    {
-        this.roles = roles;
+    public String getRole() {
+        return role;
     }
-    
-    public boolean hasRole(String roleName)
-    {
-        if (roles != null)
-        {
-            for(String role : roles)
-            {
-                if(roleName.equals(role))
-                {
-                    return true;
-                }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public boolean hasRole(String roleName) {
+        if (role != null) {
+            if (roleName.equals(role)) {
+                return true;
             }
         }
-        
+
         return false;
     }
-    
-    public boolean equals(User user)
-    {
+
+    public boolean equals(User user) {
         return emailAddress.equals(user.getEmailAddress());
+    }
+
+    public void print() {
+        System.out.println(this.id + " " + this.firstName + " " + this.middleName + " " + this.lastName + " " + this.postcode + " " + this.streetnumber + " " + this.emailAddress + " " + this.password + " " + this.role);
     }
 }
