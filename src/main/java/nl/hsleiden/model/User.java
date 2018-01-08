@@ -57,6 +57,24 @@ public class User implements Principal
     @JsonView(View.Private.class)
     private String[] roles;
 
+    public User(String firstname, String middlename, String lastname,
+                String postcode, String streetnumber, String email, String password) {
+        
+        this.setFirstName(firstname);
+        this.setMiddleName(middlename);
+        this.setLastName(lastname);
+        this.setPostcode(postcode);
+        this.setStreetnumber(streetnumber);
+        this.setEmailAddress(email);
+        this.setPassword(password);
+        this.setRoles(new String[] { "GUEST", "ADMIN" });
+        
+    }
+    
+    public User() {
+        
+    }
+    
     public String getFirstName()
     {
         return firstName;

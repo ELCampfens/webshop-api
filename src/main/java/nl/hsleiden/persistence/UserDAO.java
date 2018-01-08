@@ -1,8 +1,14 @@
 package nl.hsleiden.persistence;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Singleton;
 import nl.hsleiden.model.User;
 
@@ -13,37 +19,47 @@ import nl.hsleiden.model.User;
 @Singleton
 public class UserDAO
 {
-    private final List<User> users;
+    private Database DB;
+    private List<User> users;
     
     public UserDAO()
-    {
-        User user1 = new User();
-        user1.setFirstName("Humpty");
-        user1.setMiddleName("von");
-        user1.setLastName("dumpty");
-    
-        user1.setPostcode("1234AB");
-        user1.setStreetnumber("12");
-        user1.setEmailAddress("first@user.com");
-        user1.setPassword("first");
-        user1.setRoles(new String[] { "GUEST", "ADMIN" });
-        
-        User user2 = new User();
-        user2.setFirstName("Testing");
-        user2.setLastName("test");
-        user2.setPostcode("9876ZY");
-        user2.setStreetnumber("98");
-        user2.setEmailAddress("second@user.com");
-        user2.setPassword("second");
-        user2.setRoles(new String[] { "GUEST" });
-        
+    {   
         users = new ArrayList<>();
-        users.add(user1);
-        users.add(user2);
+        DB = new Database();
+        
+        fillList();
+
+    }
+    
+    public void fillList() {
+                
+        System.out.println("inside productDAO getAll");
+        
+//        users.clear();
+        
+        Connection conn = DB.getConnection();
+        String query = "SELECT * FROM user";
+        try {
+            PreparedStatement allUsers = conn.prepareStatement(query);
+            ResultSet rs = allUsers.executeQuery();
+            
+            
+            while(rs.next()) {
+//                broeken.add(new Broek(rs.getInt("id") ,rs.getString("merk"), rs.getDouble("prijs"), rs.getString("img_link")));
+                users.add(new User(rs.getString("firstname"), rs.getString("middlename"), rs.getString("lastname"), rs.getString("postcode"), rs.getString("streetnumber"), rs.getString("email"), rs.getString("password")));
+            }
+            
+            System.out.println("AANTAL USERS : " + users.size());
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public List<User> getAll()
-    {
+    {     
+        users.clear();
+        fillList();
         return users;
     }
     
@@ -72,9 +88,12 @@ public class UserDAO
     
     public void add(User user)
     {
-        System.out.println("in the dao, before adding : " + user);
+        
+        
+        
+        
+        
         users.add(user);
-        System.out.println("in the dao, after adding : " + user);
     }
     
     public void update(int id, User user)

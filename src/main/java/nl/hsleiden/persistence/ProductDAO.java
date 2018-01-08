@@ -36,7 +36,7 @@ public class ProductDAO {
 
         Connection conn = DB.getConnection();
         broeken = new ArrayList<>();
-        String query = "SELECT * FROM broeken";
+        String query = "SELECT * FROM producten";
         try {
             PreparedStatement allBroeken = conn.prepareStatement(query);
             ResultSet rs = allBroeken.executeQuery();
