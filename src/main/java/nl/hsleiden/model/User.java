@@ -16,11 +16,24 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class User implements Principal
 {
+//    @NotEmpty
+//    @Length(min = 3, max = 100)
+//    @JsonView(View.Public.class)
+//    private String fullName;
+    
     @NotEmpty
     @Length(min = 3, max = 100)
     @JsonView(View.Public.class)
-    private String fullName;
+    private String firstName;
     
+    @JsonView(View.Public.class)
+    private String middleName;
+    
+    @NotEmpty
+    @Length(min = 3, max = 100)
+    @JsonView(View.Public.class)
+    private String lastName;
+//    
     @NotEmpty
     @Length(min = 6, max = 7)
     @JsonView(View.Public.class)
@@ -44,16 +57,44 @@ public class User implements Principal
     @JsonView(View.Private.class)
     private String[] roles;
 
-    public String getFullName()
+    public String getFirstName()
     {
-        return fullName;
+        return firstName;
     }
 
-    public void setFullName(String fullName)
+    public void setFirstName(String firstName)
     {
-        this.fullName = fullName;
+        this.firstName = firstName;
+    }
+    
+    public String getMiddleName()
+    {
+        return middleName;
     }
 
+    public void setMiddleName(String middleName)
+    {
+        this.middleName = middleName;
+    }
+
+    public String getLastName()
+    {
+        return lastName;
+    }
+
+    public void setLastName(String lastName)
+    {
+        this.lastName = lastName;
+    }
+    
+//    public String getFullName() {
+//        return fullName;
+//    }
+//    
+//    public void setFullName(String fullName) {
+//        this.fullName = fullName;
+//    }
+    
     public String getPostcode()
     {
         return postcode;
@@ -98,7 +139,8 @@ public class User implements Principal
     @JsonIgnore
     public String getName()
     {
-        return fullName;
+        return firstName + " " + middleName + " " + lastName;
+//        return fullName;
     }
     
     public String[] getRoles()

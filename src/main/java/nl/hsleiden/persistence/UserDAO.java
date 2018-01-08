@@ -18,7 +18,10 @@ public class UserDAO
     public UserDAO()
     {
         User user1 = new User();
-        user1.setFullName("First user");
+        user1.setFirstName("Humpty");
+        user1.setMiddleName("von");
+        user1.setLastName("dumpty");
+    
         user1.setPostcode("1234AB");
         user1.setStreetnumber("12");
         user1.setEmailAddress("first@user.com");
@@ -26,7 +29,8 @@ public class UserDAO
         user1.setRoles(new String[] { "GUEST", "ADMIN" });
         
         User user2 = new User();
-        user2.setFullName("Second user");
+        user2.setFirstName("Testing");
+        user2.setLastName("test");
         user2.setPostcode("9876ZY");
         user2.setStreetnumber("98");
         user2.setEmailAddress("second@user.com");
@@ -68,7 +72,9 @@ public class UserDAO
     
     public void add(User user)
     {
+        System.out.println("in the dao, before adding : " + user);
         users.add(user);
+        System.out.println("in the dao, after adding : " + user);
     }
     
     public void update(int id, User user)

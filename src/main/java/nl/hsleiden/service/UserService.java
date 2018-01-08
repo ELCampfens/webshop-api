@@ -33,8 +33,10 @@ public class UserService extends BaseService<User>
     
     public void add(User user)
     {
+        System.out.println("inside the service, before adding the role : " + user);
         user.setRoles(new String[] { "GUEST" });
         
+        System.out.println("inside the service, after adding role and before dao : " + user);
         dao.add(user);
     }
     

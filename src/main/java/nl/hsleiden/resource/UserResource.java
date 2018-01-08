@@ -36,6 +36,8 @@ public class UserResource
     @Inject
     public UserResource(UserService service)
     {
+        
+        System.out.println("INJSIDE THE USERSERVICE CONSTRUCTOR");
         this.service = service;
     }
     
@@ -61,6 +63,7 @@ public class UserResource
     @JsonView(View.Protected.class)
     public void create(@Valid User user)
     {
+        System.out.println("inside the api, before service.add @resource : " + user);
         service.add(user);
     }
     
