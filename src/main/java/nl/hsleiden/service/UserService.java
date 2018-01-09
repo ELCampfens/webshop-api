@@ -33,7 +33,7 @@ public class UserService extends BaseService<User>
     
     public void add(User user)
     {
-        user.setRole("GUEST");
+//        user.setRole("GUEST");
         dao.add(user);
     }
     
@@ -55,6 +55,7 @@ public class UserService extends BaseService<User>
     public void delete(int id)
     {
         // Controleren of deze gebruiker wel bestaat
+        System.out.println("HI I AM ID : " + id + " INSIDE THE USER SERVICE");
         User user = get(id);
         
         dao.delete(id);

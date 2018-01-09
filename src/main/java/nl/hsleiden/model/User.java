@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author Peter van Vliet
  */
 public class User implements Principal {
-    @NotEmpty
+//    @NotEmpty
     @JsonView(View.Public.class)
     private int id;
     

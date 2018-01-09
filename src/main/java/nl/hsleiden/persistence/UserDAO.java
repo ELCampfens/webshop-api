@@ -113,7 +113,7 @@ public class UserDAO
         }
         
         
-         user.print();
+         fillList();
         
 //        users.add(user);
     }
@@ -125,7 +125,34 @@ public class UserDAO
     
     public void delete(int id)
     {
-        // GOTTA MAKE IT FOR THE DB HERE
-        users.remove(id);
+//        // GOTTA MAKE IT FOR THE DB HERE
+//        System.out.println("HI I AM ID : " + id + " IN THE DELETE FUNCTION OF THE USER DAO.");
+//        System.out.println("AANTAL USERS IN DE DELETE : " + this.users.size());
+//        
+//        for(User user: this.users) {
+//            System.out.println(user);
+//        }
+//        
+//        users.remove(id);
+        
+        
+        try {
+            
+            Connection conn = DB.getConnection();
+            String query = "DELETE FROM user WHERE id = ?";
+            
+            PreparedStatement removeUser = conn.prepareStatement(query);
+            
+            removeUser.setInt(1, id);
+
+            removeUser.executeUpdate();
+            
+            System.out.println("REMOVED THE USER!");
+            
+            DB.closeConnection(conn);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
