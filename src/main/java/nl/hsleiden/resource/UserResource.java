@@ -68,10 +68,12 @@ public class UserResource
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @JsonView(View.Protected.class)
-//    @RolesAllowed("GUEST")
-    public void update(@PathParam("id") int id, @Auth User authenticator, User user)
+    public void update(@PathParam("id") int id, User user)
     {
-        service.update(authenticator, id, user);
+        System.out.println("INSIDE THE USER RESOURCE PUT : " + user.getFirstName());
+//        System.out.println("INSIDE THE USER RESOURCE PUT AUTHER : " + authenticator.getFirstName());
+        service.update( id, user);
+        System.out.println("AFTER THE SERVICE UPDATE IN THE USER RESOURCE");
     }
     
     @DELETE

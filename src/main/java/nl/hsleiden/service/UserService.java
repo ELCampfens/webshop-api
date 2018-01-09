@@ -37,17 +37,23 @@ public class UserService extends BaseService<User>
         dao.add(user);
     }
     
-    public void update(User authenticator, int id, User user)
+    public void update(int id, User user)
     {
-        // Controleren of deze gebruiker wel bestaat
-        User oldUser = get(id);
-        
-        if (!authenticator.hasRole("ADMIN"))
-        {
-            // Vaststellen dat de geauthenticeerde gebruiker
-            // zichzelf aan het aanpassen is
-            assertSelf(authenticator, oldUser);
-        }
+//        // Controleren of deze gebruiker wel bestaat
+//        System.out.println("BEFORE THE CHECK OF THE OLD USER");
+//        
+////        User oldUser = get(id);
+//        
+//        System.out.println("AFTER THE CHECK OF THE OLD USER");
+//        
+//        if (!authenticator.hasRole("ADMIN"))
+//        {
+//            // Vaststellen dat de geauthenticeerde gebruiker
+//            // zichzelf aan het aanpassen is
+//            assertSelf(authenticator);
+//        }
+//        
+//        System.out.println("INSIDE THE UPDATE USER SERVICE");
         
         dao.update(id, user);
     }
