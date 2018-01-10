@@ -17,7 +17,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  *
  * @author Enzo
  */
-public class Broek {
+public class Product {
     
     @NotEmpty
     @JsonView(View.Public.class)
@@ -36,6 +36,17 @@ public class Broek {
     @NotEmpty
     @JsonView(View.Public.class)
     private String img;
+    
+    @JsonView(View.Public.class)
+    private int shop_id;
+    
+    public int getShopID() {
+        return this.shop_id;
+    }
+    
+    public void setShopID(int shop_id) {
+        this.shop_id = shop_id;
+    }
     
     public int getID() {
         return this.id;
@@ -65,12 +76,25 @@ public class Broek {
         return this.img;
     }
     
-    public Broek(int id, String merk, double prijs, String img) {
+    public Product(int id, String merk, double prijs, String img) {
         this.id = id;
         this.merk = merk;
         this.prijs = prijs;
         this.img = img;
     }
+    
+    public Product(int id, String merk, double prijs, String img, int shop_id) {
+        this.id = id;
+        this.merk = merk;
+        this.prijs = prijs;
+        this.img = img;
+        this.shop_id = shop_id;
+    }
+    
+    public Product() {
+        
+    }
+    
     
     public String toString() {
         return this.id + " " + this.merk + " " + this.prijs + " " + this.img;

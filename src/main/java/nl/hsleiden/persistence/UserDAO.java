@@ -144,15 +144,6 @@ public class UserDAO {
     }
 
     public void delete(int id) {
-//        // GOTTA MAKE IT FOR THE DB HERE
-//        System.out.println("HI I AM ID : " + id + " IN THE DELETE FUNCTION OF THE USER DAO.");
-//        System.out.println("AANTAL USERS IN DE DELETE : " + this.users.size());
-//        
-//        for(User user: this.users) {
-//            System.out.println(user);
-//        }
-//        
-//        users.remove(id);
 
         try {
 
